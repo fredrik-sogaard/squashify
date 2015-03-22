@@ -1,0 +1,22 @@
+<div class="container">
+
+  <%= select_tag(:date, options_for_select( @dates, @date ), class:'form-control', id: "date-select") %>
+
+  <table class="table">
+    <tr><th>Tid</th><th>Sted</th><th>Bane</th></tr>
+  <% for slot in Slot.all(available_hour:true, first_time:16).sort_by{ |slot| [slot.time,slot.club,slot.lane] } %>
+    <tr>
+      <td><%=slot.time%></td>
+      <td><%=slot.club%></td>
+      <td><%=slot.lane%></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <script>
+  $('#date-select').change(function() {
+    window.location = "available?date="+$(':selected',this).val()
+  });
+  </script>
+
+</div>

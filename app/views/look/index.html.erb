@@ -1,0 +1,27 @@
+
+<style>
+  .available   { background-color: green }
+  .unavailable { background-color: red }
+  .outside     { background-color: grey }
+</style>
+
+<table class="table table-bordered">
+  <tr>
+    <th>Klubb</th>
+    <th>Bane</th>
+<% for time in Slot.times %>
+<th><%=raw time.gsub(":","<br/>")%></th>
+<% end %>
+</tr>
+
+<% for club,lane in Slot.club_lanes %>
+  <tr>
+    <td><%=club%></td><td><%=lane%></td>
+    <% for time in Slot.times %>
+      <td class="<%=Slot.status(club: club, lane: lane, time: time)%>"></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%=@slots%>
