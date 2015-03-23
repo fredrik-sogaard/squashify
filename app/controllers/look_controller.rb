@@ -8,14 +8,15 @@ class LookController < ApplicationController
     days = ['søn','man','tir','ons','tor','fre','lør']
 
     @dates = Date.today.upto(Date.today+5).map do |day|
-      [ days[day.wday] + (day==Date.today+1 ? " (i morgen)" : "") , day.strftime("%Y%m%d") ]
+      [ day.strftime("%Y%m%d"), days[day.wday], day==@date ]
     end
   end
 
   private
 
   def load
-    @date = params[:date].nil? ? (Date.today+1).strftime("%Y%m%d") : params[:date]
+
+    @date = params[:date].nil? ? Date.today+1 : Date.parse(params[:date])
 
     Slot.load @date
   end

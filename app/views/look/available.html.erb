@@ -1,22 +1,42 @@
-<div class="container">
-
-  <%= select_tag(:date, options_for_select( @dates, @date ), class:'form-control', id: "date-select") %>
-
-  <table class="table">
-    <tr><th>Tid</th><th>Sted</th><th>Bane</th></tr>
-  <% for slot in Slot.all(available_hour:true, first_time:16).sort_by{ |slot| [slot.time,slot.club,slot.lane] } %>
-    <tr>
-      <td><%=slot.time%></td>
-      <td><%=slot.club%></td>
-      <td><%=slot.lane%></td>
-    </tr>
+<ul class="nav nav-tabs nav-justified">
+  <% for date, name, selected in @dates %>
+    <li<%=raw selected ? ' class="active"':''%>><a href="available?date=<%= date %>" class="text-capitalize"><%=name%></a></li>
   <% end %>
-  </table>
+</ul>
 
-  <script>
-  $('#date-select').change(function() {
-    window.location = "available?date="+$(':selected',this).val()
-  });
-  </script>
+<table class="table table-hover">
+  <tr>
+    <th>Tid</th>
+    <th>Sted</th>
+  </tr>
+<% for time in Slot.all(available_hour:true, first_time:16).map { |slot| slot.time }.sort.uniq %>
+  <tr>
+    <td><span class="time"><%=time%></span></td>
+    <td>
+      <% Slot.all(time:time, available_hour:true).map { |slot| slot.club}.uniq.each do |club| %>
+        <a class="btn btn-default" href="<%=club.link_url(@date)%>" role="button">
+          <%=club.name%>
+        </a>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
 
-</div>
+<script>
+$('#date-select').change(function() {
+  window.location = ""+$(':selected',this).val()
+});
+</script>
+
+<style>
+.table th {
+     border-top: none !important;
+ }
+ .table td {
+   vertical-align: middle !important;
+ }
+ .time {
+   font-size: 1.4em;
+ }
+</style>
