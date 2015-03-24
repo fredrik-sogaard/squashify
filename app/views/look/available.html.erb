@@ -1,8 +1,33 @@
-<ul class="nav nav-tabs nav-justified">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="#">SquashMin</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <% for date, name, selected in @dates %>
+          <li<%=raw selected ? ' class="active"':''%>><a href="available?date=<%= date %>" class="text-capitalize"><%=name%></a></li>
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class=".col-xs-12">
+      <ul class="nav nav-tabs nav-justified">
   <% for date, name, selected in @dates %>
     <li<%=raw selected ? ' class="active"':''%>><a href="available?date=<%= date %>" class="text-capitalize"><%=name%></a></li>
   <% end %>
 </ul>
+</div></div></div>
 
 <table class="table table-hover">
   <tr>
@@ -14,7 +39,7 @@
     <td><span class="time"><%=time%></span></td>
     <td>
       <% Slot.all(time:time, available_hour:true).map { |slot| slot.club}.uniq.each do |club| %>
-        <a class="btn btn-default" href="<%=club.link_url(@date)%>" role="button">
+        <a class="btn btn-success" href="<%=club.link_url(@date)%>" role="button">
           <%=club.name%>
         </a>
       <% end %>
