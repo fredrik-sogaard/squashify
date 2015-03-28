@@ -7,6 +7,8 @@ class LookController < ApplicationController
   def available
     days = ['søn','man','tir','ons','tor','fre','lør']
 
+    @button_types = { double: "btn-primary", hour: "btn-success", none: "btn-default disabled" }
+
     @dates = Date.today.upto(Date.today+5).map do |day|
       [ day.strftime("%Y%m%d"), days[day.wday], day==@date ]
     end

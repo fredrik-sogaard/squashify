@@ -1,20 +1,11 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-      </button>
-      <a class="navbar-brand" href="#">SquashMin</a>
-    </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <% for date, name, selected in @dates %>
           <li<%=raw selected ? ' class="active"':''%>><a href="/look/available?date=<%= date %>"><%=name%></a></li>
         <% end %>
       </ul>
-    </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
@@ -27,21 +18,18 @@
   <tr>
     <td><span class="time"><%=time%></span></td>
     <td>
-      <% Slot.all(time:time, available_hour:true).map { |slot| slot.club}.uniq.each do |club| %>
-        <a class="btn btn-success" href="<%=club.link_url(@date)%>" role="button">
-          <%=club.name%>
+      <div class="btn-group btn-group-sm" role="group">
+      <% Slot.clubs.each do |club| %>
+        <% buttontype =  %>
+        <a class="btn <%= @button_types[Slot.status(time: time, club: club)] %>" href="<%=club.link_url(@date)%>" role="button">
+          <%= club.name %>
         </a>
       <% end %>
+    </div>
     </td>
   </tr>
 <% end %>
 </table>
-
-<script>
-$('#date-select').change(function() {
-  window.location = ""+$(':selected',this).val()
-});
-</script>
 
 <style>
 .table th {

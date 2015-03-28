@@ -24,10 +24,12 @@ class Slot
     self.all(params).first
   end
 
-  def self.available(params = {})
-    slot = self.first(params)
-    return nil if slot.nil?
-    return slot.available
+  def self.status(params = {})
+    slots = self.all(params)
+    return :double if slots.select { |slot| slot.available_double_hour }.size>0
+    return :hour if slots.select{ |slot| slot.available_hour }.size>0
+    #return "half" if slots.select{ |slot| slot.available }.size>0
+    return :none
   end
 
   def self.load(date=Date.today.next_day)
@@ -53,9 +55,6 @@ class Slot
     end
   end
 
-  def self.clubs
-    @slots.map { |slot| slot.club }.uniq.sort
-  end
 
   def self.times
     @slots.map { |slot| slot.time }.uniq.sort
@@ -65,10 +64,18 @@ class Slot
     @slots.map { |slot| [slot.club,slot.lane] }.uniq.sort
   end
 
+  def next_time
+    Slot.times[Slot.times.index(self.time)+1]
+  end
+
   def available_hour
     return false unless self.available
-    next_time = Slot.times[Slot.times.index(self.time)+1]
-    return Slot.all(club: self.club, time:next_time, available:true).size>0 ? true : false
+    return Slot.all(club: self.club, time:self.next_time, available:true).size>0 ? true : false
+  end
+
+  def available_double_hour
+    slots = Slot.all(club: self.club, time:self.time, available_hour:true)
+    return slots.size>1
   end
 
 end
