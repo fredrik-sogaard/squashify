@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
-  root to: "look#available"
+  root to: "look#index"
 
-  get 'look/index'
-  get 'look/available'
+  get '/look/:id', to: 'look#index', as: 'day'
 
 end

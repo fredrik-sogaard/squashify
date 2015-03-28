@@ -3,3 +3,35 @@ $grid-float-breakpoint: 17px;
 @import "bootstrap-sprockets";
 
 @import "bootstrap";
+
+body { padding-top: 60px; }
+
+
+.double {
+  @extend .btn-primary;
+}
+
+.hour {
+  @extend .btn-success;
+}
+
+.none {
+  @extend .disabled;
+  @extend .btn-default;
+}
+
+table th, table td {
+     border-top: none !important;
+     border-bottom: none !important;
+}
+table td {
+   vertical-align: middle !important;
+}
+.time {
+   font-size: 1.5em;
+}
+
+table.slots td {
+  padding: 4px;
+  white-space: nowrap;
+}

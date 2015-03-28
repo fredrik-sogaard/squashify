@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'http'
+ruby '2.2.1'
+
+gem 'typhoeus'
 gem 'ox'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'

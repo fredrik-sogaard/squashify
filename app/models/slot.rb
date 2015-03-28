@@ -1,10 +1,9 @@
 class Slot
   include ActiveModel::Model
 
-  @slots = []
-  @clubs = []
-
   attr_accessor :club, :lane, :date, :time, :available
+
+  @slots = []
 
   def self.all(params = {})
     slots = @slots
@@ -16,10 +15,6 @@ class Slot
     slots
   end
 
-  def self.clubs
-    @clubs
-  end
-
   def self.first(params = {})
     self.all(params).first
   end
@@ -28,33 +23,35 @@ class Slot
     slots = self.all(params)
     return :double if slots.select { |slot| slot.available_double_hour }.size>0
     return :hour if slots.select{ |slot| slot.available_hour }.size>0
-    #return "half" if slots.select{ |slot| slot.available }.size>0
     return :none
   end
 
   def self.load(date=Date.today.next_day)
     @slots = []
 
-    @clubs = [
-      Club.new( name: "Sagene", prefix: "sagenesquash" ),
-      Club.new( name: "Skippern", prefix: "skippernsquash"),
-      Club.new( name: "Vulkan", prefix: "vulkansquash"),
-      Club.new( name: "Sentrum", prefix: "sentrumsquash")
-    ]
-    @clubs.each do |club|
-      HTTP.get(club.data_url(date)).to_s.scan(/<td class="slot[^>]+>/).each do |x|
-        slot = Slot.new(
-          club: club,
-          lane: x.match(/title="(.*) kl/)[1].gsub(".",""),
-          date: date,
-          time: x.match(/kl (\d{2}:\d{2})/)[1],
-          available: x.match("unavailable").nil?
-        )
-        @slots << slot
-      end
-    end
-  end
+    hydra = Typhoeus::Hydra.hydra
 
+    requests = Club.all.map { |club|
+      request = Typhoeus::Request.new(club.data_url(date), followlocation: true)
+      hydra.queue(request)
+      [club, request]
+    }
+    hydra.run
+
+    requests.each do |club,request|
+      request.response.body.to_s.scan(/<td class="slot[^>]+>/).each do |x|
+          slot = Slot.new(
+            club: club,
+            lane: x.match(/title="(.*) kl/)[1].gsub(".",""),
+            date: date,
+            time: x.match(/kl (\d{2}:\d{2})/)[1],
+            available: x.match("unavailable").nil?
+          )
+          @slots << slot
+        end
+    end
+
+  end
 
   def self.times
     @slots.map { |slot| slot.time }.uniq.sort
