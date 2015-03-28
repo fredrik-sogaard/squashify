@@ -12,9 +12,9 @@
 <table class="table table-hover">
   <tr>
     <th>Tid</th>
-    <th>Sted</th>
+    <th>Klubb</th>
   </tr>
-<% for time in Slot.all(available_hour:true, first_time:16).map { |slot| slot.time }.sort.uniq %>
+<% for time in Slot.all(available_hour:true).map { |slot| slot.time }.sort.uniq %>
   <tr>
     <td><span class="time"><%=time%></span></td>
     <td>
@@ -31,6 +31,23 @@
 <% end %>
 </table>
 
+<div class="container">
+<h3>Hjelp</h3>
+<p>Squashmin gir en oversikt over tilgjengelige baner hos SQF. Velg en dag du vil se etter baner på toppen.</p>
+
+<p>Fargene betyr følgende:</p>
+<div class="btn-group-vertical" role="group">
+  <button type="button" class="btn btn-primary">To baner tilgjengelig</button>
+  <button type="button" class="btn btn-success">To baner tilgjengelig</button>
+  <button type="button" class="btn btn-default disabled">Ingen bane tilgjengelig</button>
+</div>
+<p>&nbsp;</p>
+<p>Verdt å vite:</p>
+<ul>
+  <li>Squashmin ignorerer halvtimer, siden det er lite poeng å spille en halvtime... Så alle statuser refererer til en hel times spilling fra det viste tidspunktet.</li>
+  <li>Squashmin regner to forskjellige baner med en halvtime ledig etter hverandre som en hel time, så lenge det er i samme klubb.</li>
+</ul>
+</div>
 <style>
 .table th {
      border-top: none !important;
