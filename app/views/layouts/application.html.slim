@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    title Squashify
+    = stylesheet_link_tag    "application", media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    meta name="mobile-web-app-capable" content="yes"
+    meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"
+
+    link href="/icons/icon-57.png" sizes="57x57" rel="apple-touch-icon-precomposed"
+    link href="/icons/icon-72.png" sizes="72x72" rel="apple-touch-icon-precomposed"
+    link href="/icons/icon-76.png" sizes="76x76" rel="apple-touch-icon-precomposed"
+    link href="/icons/icon-114.png" sizes="114x114" rel="apple-touch-icon-precomposed"
+    link href="/icons/icon-144.png" sizes="144x144" rel="apple-touch-icon-precomposed"
+    link href="/icons/icon-152.png" sizes="152x152" rel="apple-touch-icon-precomposed"
+    link href="/icons/icon-180.png" sizes="180x180" rel="apple-touch-icon-precomposed"
+
+    // link href="/logos/logo-300x300.jpg" rel="apple-touch-startup-image"
+
+body
+
+nav class="navbar navbar-default navbar-fixed-top navbar-inverse"
+  div class="container-fluid"
+    div class="navbar-header"
+      a class="navbar-brand" href="#" Squashify
+    ul class="nav navbar-nav"
+      li class=""
+        a href="/bookings" = t(:booking)
+      li class=""
+        a href="/games" = t(:league)
+
+div class="container"
+  - flash.each do |type, message|
+    div class="alert #{bootstrap_class_for type} alert-dismissible fade in"
+      button type="button" class="close" data-dismiss="alert"
+        span aria-hidden="true" &times;
+        span class="sr-only" = t(:close)
+      = message
+
+== yield

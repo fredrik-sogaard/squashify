@@ -1,11 +1,48 @@
+$main-color: #389efa;
+$alt-color: #ffffff;
+
+
+// Bootstrap overrides
 $grid-float-breakpoint: 17px;
+
+$navbar-inverse-bg: $main-color;
+$navbar-inverse-color: $alt-color;
+$navbar-inverse-link-color: $alt-color;
 
 @import "bootstrap-sprockets";
 
 @import "bootstrap";
+/*
+ *= require rails_bootstrap_forms
+ */
+$win-color: green;
+$loss-color: red;
 
 body { padding-top: 60px; }
 
+span.result {
+  display:inline-block;
+  width:5px;
+  margin: 0px;
+}
+
+span.win {
+  background-color: $win-color;
+}
+
+span.loss {
+  background-color: $loss-color;
+}
+
+.winner {
+  color: $win-color;
+}
+
+.loser {
+  color: $loss-color;
+}
+
+// Bookings
 
 .double {
   @extend .btn-primary;
@@ -20,18 +57,18 @@ body { padding-top: 60px; }
   @extend .btn-default;
 }
 
-table th, table td {
-     border-top: none !important;
-     border-bottom: none !important;
-}
-table td {
-   vertical-align: middle !important;
-}
 .time {
    font-size: 1.5em;
 }
 
-table.slots td {
+table.sq-slots-table td {
+  //border-top: none !important;
+  //border-bottom: none !important;
+  vertical-align: middle !important;
   padding: 4px;
   white-space: nowrap;
+}
+
+.sq-datetabs {
+    margin-bottom: 15px;
 }

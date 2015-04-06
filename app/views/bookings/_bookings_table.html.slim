@@ -1,0 +1,13 @@
+div class="panel panel-default"
+  div class="panel-heading"
+    h3 class="panel-title" Bookings
+  table class="table sq-slots-table"
+    - for time in Slot.all(available_hour:true).map { |slot| slot.time }.sort.uniq
+      tr
+        td class=""
+          span class="time" = time
+        td
+          div class="btn-group"
+            - Club.all.each do |club|
+              a class="btn btn-sm #{Slot.status(time: time, club: club)}" href="#{club.link_url(@date)}" role="button"
+                = club.name

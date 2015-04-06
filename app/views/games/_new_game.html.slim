@@ -1,0 +1,15 @@
+div class="panel panel-default"
+  div class="panel-heading"
+    h3 class="panel-title" = t(:register_new_match)
+  div class="panel-body"
+
+    = bootstrap_form_for(@game) do |f|
+      = f.alert_message t(:something_wrong)
+
+      = f.date_field :played_date, value: Date.today.to_s(:db)
+      - nr = 0
+      = f.fields_for :spots do |spots_form|
+        - nr+=1
+        = spots_form.collection_select :player_id, Player.all, :id, :name, include_blank: false, label: "#{Player.model_name.human} #{nr}"
+        = spots_form.number_field :score, in: 0..20, hide_label: true, placeholder: Spot.human_attribute_name(:score)
+      = f.primary t(:register_new_match)

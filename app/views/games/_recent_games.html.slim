@@ -1,0 +1,17 @@
+div class="panel panel-default"
+  div class="panel-heading"
+    h3 class="panel-title" = t(:recent_games)
+  table class="table table-striped"
+    thead
+      tr
+        th = t(:ddate)
+        th #{Player.model_name.human}&nbsp;1
+        th class="text-center" = t(:result)
+        th class="text-right" #{Player.model_name.human}&nbsp;2
+    tbody
+      - Game.order(played_date: :desc, id: :desc).each do |game|
+        tr
+          td = game.played_date
+          td class="#{game.spot1.winner? ? 'winner':'loser'}"= game.spot1.player.name
+          td class="text-center" #{game.spot1.score} &mdash; #{game.spot2.score}
+          td class="text-right #{game.spot2.winner? ? 'winner':'loser'}" = game.spot2.player.name

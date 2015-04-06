@@ -1,4 +1,4 @@
-class LookController < ApplicationController
+class BookingsController < ApplicationController
 
   def index
 

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  root to: "look#index"
+  root to: "bookings#index"
 
-  get '/look/:id', to: 'look#index', as: 'day'
+  get '/bookings/(:id)', to: 'bookings#index', as: 'day'
+
+  resources :games
 
 end

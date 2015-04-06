@@ -6,7 +6,9 @@ gem 'typhoeus'
 gem 'ox'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+gem 'bootstrap_form'
 gem 'rails_12factor'
+gem "slim-rails"
 
 gem 'rails', '4.2.1'
 gem 'pg'
