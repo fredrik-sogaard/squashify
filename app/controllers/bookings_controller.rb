@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
 
     @date = params[:id].nil? ? Date.today+1 : Date.today + params[:id].to_i
 
-    days = ['søn','man','tir','ons','tor','fre','lør']
+    days = t(:"date.abbr_day_names")
     @dates = (0..2).map do |id|
       day = Date.today + id
 

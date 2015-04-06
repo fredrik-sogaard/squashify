@@ -215,9 +215,12 @@ nb:
   register_new_match: Registrer kamp
   league_table: Ligatabell
   win_percentage: Seiersprosent
+  recent_games: Siste spilte kamper
   trend: Trend
   ddate: Dato
   result: Resultat
   booking: Booking
   league: Liga
   close: Lukk
+  help: Hjelp
+  bookings: Ledige timer

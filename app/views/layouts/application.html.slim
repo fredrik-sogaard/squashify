@@ -8,7 +8,7 @@ html
     meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1"
     meta name="apple-mobile-web-app-capable" content="yes"
     meta name="mobile-web-app-capable" content="yes"
-    meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"
+    meta name="apple-mobile-web-app-status-bar-style" content="black"
 
     link href="/icons/icon-57.png" sizes="57x57" rel="apple-touch-icon-precomposed"
     link href="/icons/icon-72.png" sizes="72x72" rel="apple-touch-icon-precomposed"
@@ -18,6 +18,10 @@ html
     link href="/icons/icon-152.png" sizes="152x152" rel="apple-touch-icon-precomposed"
     link href="/icons/icon-180.png" sizes="180x180" rel="apple-touch-icon-precomposed"
 
+    link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"
+    link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"
+    link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"
+
     // link href="/logos/logo-300x300.jpg" rel="apple-touch-startup-image"
 
 body
@@ -25,12 +29,13 @@ body
 nav class="navbar navbar-default navbar-fixed-top navbar-inverse"
   div class="container-fluid"
     div class="navbar-header"
-      a class="navbar-brand" href="#" Squashify
+      a class="navbar-brand" href="/"
+        img alt="Brand" src="/logos/logo-600x200.jpg"
     ul class="nav navbar-nav"
-      li class=""
-        a href="/bookings" = t(:booking)
-      li class=""
-        a href="/games" = t(:league)
+      li class="#{'active' if controller.controller_name == 'bookings'}"
+        = link_to t(:booking), "/bookings"
+      li class="#{'active' if controller.controller_name == 'games'}"
+        = link_to t(:league), "/games"
 
 div class="container"
   - flash.each do |type, message|

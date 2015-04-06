@@ -1,10 +1,10 @@
 div class="panel panel-default"
   div class="panel-heading"
-    h3 class="panel-title" Bookings
+    h3 class="panel-title" = t(:bookings)
   table class="table sq-slots-table"
     - for time in Slot.all(available_hour:true).map { |slot| slot.time }.sort.uniq
       tr
-        td class=""
+        td class="text-right"
           span class="time" = time
         td
           div class="btn-group"
