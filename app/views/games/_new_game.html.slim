@@ -11,5 +11,5 @@ div class="panel panel-default"
       = f.fields_for :spots do |spots_form|
         - nr+=1
         = spots_form.collection_select :player_id, Player.all, :id, :name, include_blank: false, label: "#{Player.model_name.human} #{nr}"
-        = spots_form.number_field :score, in: 0..20, hide_label: true, placeholder: Spot.human_attribute_name(:score)
+        = spots_form.number_field :score, in: 0..50, hide_label: true, required:true, placeholder: Spot.human_attribute_name(:score)
       = f.primary t(:register_new_match)

@@ -11,7 +11,7 @@ div class="panel panel-default"
       - Player.all.sort{|p|-p.points}.each do |player|
         tr
           td = player.name
-          td class="text-right" = number_to_percentage( player.win_percentage*100, precision: 0 )
+          td class="text-right" = number_to_percentage( player.win_percentage, precision: 0 )
           td class="text-left"
             - player.spots.includes(:game).order("games.played_date desc, spots.id desc").limit(10).reverse.each do |spot|
               span class="result #{spot.winner? ? 'win' : 'loss'}" &nbsp;

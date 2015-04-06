@@ -4,7 +4,8 @@ class Player < ActiveRecord::Base
   has_many :games, through: :spots
 
   def win_percentage
-    self.spots.map(&:points).reduce(0, &:+) / self.spots.count.to_f
+    percent = self.spots.map(&:points).reduce(0, &:+) * 100 / self.spots.count.to_f
+    return percent.nan? ? nil : percent
   end
 
   def points
