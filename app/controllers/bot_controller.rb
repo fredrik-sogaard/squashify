@@ -25,12 +25,14 @@ def index
   end
 
   for club in Club.all
-    if q.include? club.name
+    if q.downcase.include? club.name.downcase
       chosen_club = club
     end
   end
 
-  Slot.load (date==:tomorrow) ? Date.today+1 : Date.today
+  actualdate = (date==:tomorrow) ? Date.today+1 : Date.today
+
+  Slot.load actualdate
 
   if date == :today and time == :afternoon
     datetext = t(:this_afternoon)
@@ -40,21 +42,20 @@ def index
     datetext = t(date) + " " + t(time)
   end
 
+  clubtext = chosen_club.nil? ? "" : " på #{chosen_club.name}"
 
-  title = "Hei! Det er ledige squashtimer på følgende tidspunkter #{datetext}"
-
-  contents = ""
+  title = "Hei! Det er ledige squashtimer på følgende tidspunkter #{datetext}#{clubtext}"
 
   clubs = chosen_club.nil? ? Club.all : [chosen_club]
-  fields = []
+  contents = ""
   for club in clubs
     slots = Slot.all(available_hour:true, first_time: first_hour, last_time: last_hour, club: club).map{|s|s.time}.sort.uniq.join " "
-     fields << {title:club.name, value:slots}
+    contents += "*<#{club.link_url(actualdate)}|#{club.name}>*: #{slots}"
   end
   render json: {
     response_type: "in_channel",
     text: title,
-    attachments: [ { fields:fields } ]
+    attachments: [ { text:contents } ]
   }
 end
 
