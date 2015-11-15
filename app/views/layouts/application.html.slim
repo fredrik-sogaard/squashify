@@ -32,10 +32,8 @@ nav class="navbar navbar-default navbar-fixed-top navbar-inverse"
       a class="navbar-brand" href="/"
         img alt="Brand" src="/logos/logo-600x200.jpg"
     ul class="nav navbar-nav"
-      li class="#{'active' if controller.controller_name == 'bookings'}"
-        = link_to t(:booking), "/bookings"
-      li class="#{'active' if controller.controller_name == 'games'}"
-        = link_to t(:league), "/games"
+      - for id, name, selected in @dates
+        li class="#{selected ? 'active':''}" = link_to name, day_path(id)
 
 div class="container"
   - flash.each do |type, message|
