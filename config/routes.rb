@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   get '/bookings/(:id)', to: 'bookings#index', as: 'day'
 
-  get '/bot/:query', to: 'bot#index'
+  get '/bot', to: 'bot#index'
 
 end
