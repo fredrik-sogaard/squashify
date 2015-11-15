@@ -55,7 +55,7 @@ def index
   render json: {
     response_type: "in_channel",
     text: title,
-    attachments: [ { text:contents } ]
+    attachments: [ { text:contents, mrkdwn_in: ["text", "pretext"] } ]
   }
 end
 
