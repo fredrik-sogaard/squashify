@@ -46,14 +46,15 @@ def index
   contents = ""
 
   clubs = chosen_club.nil? ? Club.all : [chosen_club]
+  fields = []
   for club in clubs
     slots = Slot.all(available_hour:true, first_time: first_hour, last_time: last_hour, club: club).map{|s|s.time}.sort.uniq.join " "
-    contents += "*#{club.name}*: #{slots}\n"
+     fields << {title:club.name, value:slots}
   end
   render json: {
     response_type: "in_channel",
     text: title,
-    attachments: [ { text:contents } ]
+    attachments: [ { fields:fields } ]
   }
 end
 
