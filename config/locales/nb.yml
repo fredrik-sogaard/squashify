@@ -224,3 +224,11 @@ nb:
   close: Lukk
   help: Hjelp
   bookings: Ledige timer
+
+  today: "i dag"
+  tomorrow: "i morgen"
+  early: "tidlig"
+  late: "kveld"
+  afternoon: "ettermiddag"
+  tonight: "i kveld"
+  this_afternoon: "i ettermiddag"
