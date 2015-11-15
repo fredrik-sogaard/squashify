@@ -50,7 +50,7 @@ def index
   contents = ""
   for club in clubs
     slots = Slot.all(available_hour:true, first_time: first_hour, last_time: last_hour, club: club).map{|s|s.time}.sort.uniq.join " "
-    contents += "*<#{club.link_url(actualdate)}|#{club.name}>*: #{slots}"
+    contents += "*<#{club.link_url(actualdate)}|#{club.name}>*: #{slots}\n"
   end
   render json: {
     response_type: "in_channel",
