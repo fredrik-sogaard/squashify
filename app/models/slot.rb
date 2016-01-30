@@ -40,15 +40,17 @@ class Slot
 
     requests.each do |club,request|
       request.response.body.to_s.scan(/<td class="slot[^>]+>/).each do |x|
-          slot = Slot.new(
-            club: club,
-            lane: x.match(/title="(.*) kl/)[1].gsub(".",""),
-            date: date,
-            time: x.match(/kl (\d{2}:\d{2})/)[1],
-            available: x.match("unavailable").nil?
-          )
-          @slots << slot
-        end
+        lane = x.match(/title="(.*) kl/)[1].gsub(".","")
+        next if lane == "Golfsim"
+        slot = Slot.new(
+          club: club,
+          lane: lane,
+          date: date,
+          time: x.match(/kl (\d{2}:\d{2})/)[1],
+          available: x.match("unavailable").nil?
+        )
+        @slots << slot
+      end
     end
 
   end
