@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.1'
+ruby '>= 2.2.1'
 
 gem 'typhoeus'
 gem 'ox'
@@ -43,3 +43,6 @@ group :development, :test do
 
   gem 'awesome_print'
 end
+
+gem 'slack-ruby-bot'
+gem 'celluloid-io'
