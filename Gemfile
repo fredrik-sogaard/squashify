@@ -43,7 +43,3 @@ group :development, :test do
 
   gem 'awesome_print'
 end
-
-gem 'slack-ruby-bot-server'
-
-gem 'celluloid-io'

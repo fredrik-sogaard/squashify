@@ -1,2 +1,1 @@
-web: env APP=web bundle exec unicorn -p $PORT
-bot: env APP=bot bundle exec unicorn -p 9000
+web: env APP=web bundle exec rails server -p $PORT
