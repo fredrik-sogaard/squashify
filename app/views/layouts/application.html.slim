@@ -24,7 +24,7 @@ html
 
     // link href="/logos/logo-300x300.jpg" rel="apple-touch-startup-image"
 
-body 
+body
 
 nav class="navbar navbar-default navbar-fixed-top navbar-inverse"
   div class="container-fluid"
@@ -33,7 +33,7 @@ nav class="navbar navbar-default navbar-fixed-top navbar-inverse"
         img alt="Brand" src="/logos/logo-600x200.jpg"
     ul class="nav navbar-nav"
       - for id, name, selected in @dates
-        li class="#{selected ? 'active':''}" = link_to name, day_path(id)
+        li class="#{selected ? 'active':''}" = link_to name, ("/bookings/#{id}" + (params[:sted] ? "?sted=#{params[:sted]}" : ""))
     ul class="nav navbar-nav navbar-right"
       li
         a href="https://slack.com/oauth/authorize?scope=bot&client_id=#{ENV['SLACK_CLIENT_ID']}" Add bot to Slack

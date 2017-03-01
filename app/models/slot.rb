@@ -26,12 +26,12 @@ class Slot
     return :none
   end
 
-  def self.load(date=Date.today.next_day)
+  def self.load(clubs, date=Date.today.next_day)
     @slots = []
 
     hydra = Typhoeus::Hydra.hydra
 
-    requests = Club.all.map { |club|
+    requests = clubs.map { |club|
       request = Typhoeus::Request.new(club.data_url(date), followlocation: true)
       hydra.queue(request)
       [club, request]

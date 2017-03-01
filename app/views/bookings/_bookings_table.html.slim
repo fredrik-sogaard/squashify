@@ -8,6 +8,6 @@ div class="panel panel-default"
           span class="time" = time
         td
           div class="btn-group"
-            - Club.all.each do |club|
+            - @clubs.each do |club|
               a class="btn btn-sm #{Slot.status(time: time, club: club)}" href="#{club.link_url(@date)}" role="button"
                 = club.name

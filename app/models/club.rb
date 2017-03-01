@@ -7,7 +7,9 @@ class Club
     Club.new( name: "Sagene", prefix: "sagenesquash" ),
     Club.new( name: "Skippern", prefix: "skippernsquash"),
     Club.new( name: "Vulkan", prefix: "vulkansquash"),
-    Club.new( name: "Sentrum", prefix: "sentrumsquash")
+    Club.new( name: "Sentrum", prefix: "sentrumsquash"),
+    Club.new( name: "Lysaker", prefix: "lysakersquash"),
+    Club.new( name: "Bærum", prefix: "barumsquash")
   ]
 
   def self.all

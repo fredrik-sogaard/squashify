@@ -32,7 +32,7 @@ def index
 
   actualdate = (date==:tomorrow) ? Date.today+1 : Date.today
 
-  Slot.load actualdate
+  Slot.load Club.all, actualdate
 
   if date == :today and time == :afternoon
     datetext = t(:this_afternoon)
